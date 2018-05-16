@@ -5,8 +5,11 @@ use Cake\Routing\Route\DashedRoute;
 
 Router::plugin(
     'Solidus',
-    ['path' => '/solidus'],
-    function (RouteBuilder $routes) {
-        $routes->fallbacks(DashedRoute::class);
-    }
-);
+    ['path' => '/'],
+    function (RouteBuilder $route) {
+    $route->prefix('admin', function (RouteBuilder $route) {
+        $route->scope('/solidus', [], function (RouteBuilder $route) {
+            $route->fallbacks();
+        });
+    });
+});
